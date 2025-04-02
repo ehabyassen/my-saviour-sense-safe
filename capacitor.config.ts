@@ -21,6 +21,12 @@ const config: CapacitorConfig = {
       style: "DARK",
       backgroundColor: "#1E1B4B"
     }
+  },
+  android: {
+    buildOptions: {
+      // Using Java 11 which is more widely available
+      javaVersion: "11"
+    }
   }
 };
 
