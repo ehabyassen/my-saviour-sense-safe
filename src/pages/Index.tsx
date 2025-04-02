@@ -39,11 +39,9 @@ const Index = () => {
       {/* Hero section with logo */}
       <div className="pt-10 pb-6 px-6">
         <div className="flex justify-center">
-          <img 
-            src="/app-logo.png" 
-            alt="MySaviour Logo" 
-            className="w-32 h-32"
-          />
+          <div className="w-32 h-32 rounded-full bg-mysaviour-primary/20 flex items-center justify-center">
+            <Shield size={64} className="text-mysaviour-primary" />
+          </div>
         </div>
         <h1 className="text-2xl font-bold text-center text-white mt-4">
           MySaviour
