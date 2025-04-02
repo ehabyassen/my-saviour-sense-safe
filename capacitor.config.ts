@@ -24,8 +24,8 @@ const config: CapacitorConfig = {
   },
   android: {
     buildOptions: {
-      // Using Java 11 which is more widely available
-      javaVersion: "11"
+      // Using Java 17 to match your system version
+      javaVersion: "17"
     }
   }
 };
