@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Settings as SettingsIcon, User, Bell, Shield, ChevronRight, Phone } from 'lucide-react';
+import { Settings as SettingsIcon, User, Bell, Shield, ChevronRight, Phone, MapPin } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 import BottomNavigation from '@/components/BottomNavigation';
