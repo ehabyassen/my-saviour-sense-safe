@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">my-saviour-sense-safe</string>
+    <string name="title_activity_main">my-saviour-sense-safe</string>
+    <string name="package_name">app.lovable.ea2f88de72454634936b94ae14056051</string>
+    <string name="custom_url_scheme">app.lovable.ea2f88de72454634936b94ae14056051</string>
+</resources>

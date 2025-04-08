@@ -1,0 +1,6 @@
+task checkJavaVersion {
+    doLast {
+        println "Gradle JDK version: ${JavaVersion.current()}"
+        println "JDK location: ${System.getProperty('java.home')}"
+    }
+}

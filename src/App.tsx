@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,6 +8,9 @@ import Safety from "./pages/Safety";
 import Help from "./pages/Help";
 import Map from "./pages/Map";
 import Settings from "./pages/Settings";
+import SignUp from "./pages/SignUp";
+import TermsOfService from "./pages/TermsOfService";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
 
@@ -36,6 +38,9 @@ const App = () => {
           <Sonner />
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/safety" element={<Safety />} />
             <Route path="/help" element={<Help />} />
             <Route path="/map" element={<Map />} />

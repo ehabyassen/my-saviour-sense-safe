@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Shield, UserCheck, Phone, MapPin, Bell } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
@@ -6,6 +5,8 @@ import BottomNavigation from '@/components/BottomNavigation';
 import EmergencyButton from '@/components/EmergencyButton';
 import SafetyCard from '@/components/SafetyCard';
 import FakeCallModal from '@/components/FakeCallModal';
+import { SocialLoginButtons } from '@/components/SocialLoginButtons';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   const { toast } = useToast();
@@ -35,19 +36,37 @@ const Index = () => {
   };
   
   return (
-    <div className="min-h-screen bg-gradient-to-b from-mysaviour-dark to-black pb-20">
-      {/* Hero section with logo */}
-      <div className="pt-10 pb-6 px-6">
-        <div className="flex justify-center">
-          <div className="w-32 h-32 rounded-full bg-mysaviour-primary/20 flex items-center justify-center">
-            <Shield size={64} className="text-mysaviour-primary" />
-          </div>
+    <div className="min-h-screen bg-gradient-to-b from-mysaviour-dark to-black flex flex-col">
+      {/* Hero section with logo and motto */}
+      <div className="flex-1 flex flex-col items-center justify-center px-6">
+        <div className="w-32 h-32 rounded-full bg-mysaviour-primary/20 flex items-center justify-center mb-6">
+          <Shield size={64} className="text-mysaviour-primary" />
         </div>
-        <h1 className="text-2xl font-bold text-center text-white mt-4">
+        
+        <h1 className="text-4xl font-bold text-center text-white mb-4">
           MySaviour
         </h1>
-        <p className="text-white/70 text-center text-sm">
-          Your personal safety companion
+        
+        <p className="text-white/70 text-center text-lg mb-8 max-w-md">
+          Your personal safety companion. Stay safe, stay connected.
+        </p>
+        
+        <div className="w-full max-w-sm">
+          <SocialLoginButtons />
+        </div>
+      </div>
+      
+      {/* Footer text */}
+      <div className="p-6 text-center">
+        <p className="text-white/50 text-sm">
+          By continuing, you agree to our{' '}
+          <Link to="/terms" className="text-white/70 hover:text-white underline">
+            Terms of Service
+          </Link>
+          {' '}and{' '}
+          <Link to="/privacy" className="text-white/70 hover:text-white underline">
+            Privacy Policy
+          </Link>
         </p>
       </div>
       
