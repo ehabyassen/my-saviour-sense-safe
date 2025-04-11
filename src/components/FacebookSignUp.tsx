@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { Facebook } from 'lucide-react';
 
 interface FacebookUser {
   id: string;
@@ -27,15 +28,12 @@ export const FacebookSignUp: React.FC = () => {
   useEffect(() => {
     // Load Facebook SDK
     const loadFacebookSDK = () => {
-      if (document.getElementById('facebook-jssdk')) return;
-      
-      const fjs = document.getElementsByTagName('script')[0];
-      const js = document.createElement('script');
-      js.id = 'facebook-jssdk';
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode?.insertBefore(js, fjs);
+      // Remove any existing SDK
+      const existingScript = document.getElementById('facebook-jssdk');
+      if (existingScript) {
+        existingScript.remove();
+      }
 
-      // Initialize FB SDK after loading
       window.fbAsyncInit = function() {
         window.FB.init({
           appId: '648777021382144',
@@ -44,30 +42,40 @@ export const FacebookSignUp: React.FC = () => {
           version: 'v18.0'
         });
       };
+
+      // Load the SDK
+      const js = document.createElement('script');
+      js.id = 'facebook-jssdk';
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      js.async = true;
+      js.defer = true;
+      document.head.appendChild(js);
     };
 
     loadFacebookSDK();
   }, []);
 
-  const responseFacebook = (response: any) => {
+  const handleFacebookResponse = (response: any) => {
     console.log('Facebook response:', response);
-    if (response.authResponse) {
-      window.FB.api('/me', { fields: 'name,email,picture' }, (response: any) => {
+    if (response.status === 'connected') {
+      // Get user data
+      window.FB.api('/me', { fields: 'id,name,email,picture' }, (userData: any) => {
+        console.log('User data:', userData);
         setUser({
-          id: response.id,
-          name: response.name,
-          email: response.email,
-          picture: response.picture
+          id: userData.id,
+          name: userData.name,
+          email: userData.email,
+          picture: userData.picture
         });
         toast({
-          title: "Successfully logged in with Facebook",
-          description: `Welcome, ${response.name}!`,
+          title: "Successfully logged in",
+          description: `Welcome, ${userData.name}!`,
         });
       });
     } else {
       toast({
-        title: "Facebook login failed",
-        description: "Please try again or contact support if the problem persists.",
+        title: "Login cancelled",
+        description: "You cancelled the Facebook login.",
         variant: "destructive",
       });
     }
@@ -75,38 +83,40 @@ export const FacebookSignUp: React.FC = () => {
 
   const handleFacebookLogin = () => {
     if (window.FB) {
-      window.FB.login(responseFacebook, { 
-        scope: 'email,public_profile',
-        return_scopes: true
+      window.FB.login(handleFacebookResponse, {
+        scope: 'public_profile,email',
+        return_scopes: true,
+        enable_profile_selector: true
       });
     } else {
       toast({
         title: "Facebook SDK not loaded",
-        description: "Please refresh the page and try again.",
+        description: "Please wait a moment and try again.",
         variant: "destructive",
       });
     }
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 p-4">
+    <>
       {!user ? (
-        <div className="w-full">
-          <Button
-            onClick={handleFacebookLogin}
-            className="w-full bg-[#1877F2] hover:bg-[#1877F2]/90 text-white flex items-center justify-center gap-2"
-          >
-            <span>Continue with Facebook</span>
-          </Button>
-        </div>
+        <Button
+          onClick={handleFacebookLogin}
+          className="w-full bg-[#1877F2] hover:bg-[#1877F2]/90 text-white flex items-center justify-center gap-2 h-10"
+        >
+          <Facebook className="h-5 w-5" />
+          <span>Continue with Facebook</span>
+        </Button>
       ) : (
         <div className="text-center">
           <h2 className="text-xl font-bold mb-4">Welcome, {user.name}!</h2>
-          <img 
-            src={user.picture.data.url} 
-            alt={user.name} 
-            className="w-24 h-24 rounded-full mx-auto mb-4"
-          />
+          {user.picture && (
+            <img 
+              src={user.picture.data.url} 
+              alt={user.name} 
+              className="w-24 h-24 rounded-full mx-auto mb-4"
+            />
+          )}
           <p className="mb-2">Email: {user.email}</p>
           <Button 
             onClick={() => setUser(null)}
@@ -116,6 +126,6 @@ export const FacebookSignUp: React.FC = () => {
           </Button>
         </div>
       )}
-    </div>
+    </>
   );
 }; 

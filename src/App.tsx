@@ -12,6 +12,8 @@ import SignUp from "./pages/SignUp";
 import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
+import { TwitterCallback } from "./components/TwitterCallback";
+import { GoogleCallback } from "./components/GoogleCallback";
 import { useEffect } from "react";
 
 const queryClient = new QueryClient();
@@ -45,6 +47,8 @@ const App = () => {
             <Route path="/help" element={<Help />} />
             <Route path="/map" element={<Map />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/twitter-callback" element={<TwitterCallback />} />
+            <Route path="/google-callback" element={<GoogleCallback />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
