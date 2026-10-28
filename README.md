@@ -49,6 +49,14 @@ npm run dev                # web app on :8080
 | `VITE_FACEBOOK_APP_ID` | Facebook login |
 | `PORT` | API server port (default 3001) |
 
+**Optional HTTPS for local dev:** some browser APIs (such as geolocation) and OAuth redirects need
+HTTPS. Generate a local certificate and Vite will pick it up automatically. Certificate files are
+git-ignored.
+
+```bash
+openssl req -x509 -newkey rsa:2048 -nodes -keyout key.pem -out cert.pem -days 365 -subj "/CN=localhost"
+```
+
 ## Android
 
 ```bash
